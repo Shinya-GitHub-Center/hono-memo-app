@@ -1,0 +1,14 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .shape {
+        fill: #ffd700;
+      }
+    </style>
+  </defs>
+  <!-- 星マーク -->
+  <path class="shape" d="M34,10 L37,20 L48,20 L39,27 L42,37 L34,30 L26,37 L29,27 L20,20 L31,20 Z"/>
+  <path class="shape" d="M114,132 L117,142 L128,142 L119,149 L122,159 L114,152 L106,159 L109,149 L100,142 L111,142 Z"/>
+  <path class="shape" d="M164,177 L167,187 L178,187 L169,194 L172,204 L164,197 L156,204 L159,194 L150,187 L161,187 Z"/>
+  <path class="shape" d="M59,102 L62,112 L73,112 L64,119 L67,129 L59,122 L51,129 L54,119 L45,112 L56,112 Z"/>
+</svg>

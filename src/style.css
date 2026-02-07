@@ -1,0 +1,277 @@
+/* Light Theme */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Colors For Light Theme */
+    --accent: #3273dc;
+    --background: #f5f5f5;
+    --primary: #3273dc;
+    --secondary: #135cd1;
+    --tertiary: #363636;
+    --text: #333333;
+    --cardback: #ffffff;
+    --cardborder: #dbdbdb;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colors For Dark Theme */
+    --accent: #e63946;
+    --background: #0d1117;
+    --primary: #e63946;
+    --secondary: #ff2133;
+    --tertiary: #ffffff;
+    --text: #e6e6e6;
+    --cardback: #1f2937;
+    --cardborder: #4a4a4a;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Segoe UI Variable', Roboto, 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--background);
+  padding: 1rem;
+}
+
+/* Header */
+.header {
+  background-image: url('/images/header_back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--accent);
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Card */
+.card {
+  background-color: var(--cardback);
+  border-radius: 8px;
+  border: 1px solid var(--cardborder);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.12;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  z-index: 0;
+}
+
+/* Light mode pattern */
+@media (prefers-color-scheme: light) {
+  .card::before {
+    background-image: url('/images/card-pattern-01.svg');
+  }
+}
+
+/* Dark mode pattern */
+@media (prefers-color-scheme: dark) {
+  .card::before {
+    background-image: url('/images/card-pattern-02.svg');
+  }
+}
+
+.card>* {
+  position: relative;
+  z-index: 1;
+}
+
+/* Padding utilities */
+.p-3 {
+  padding: 1rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.m-2 {
+  margin: 0.1rem;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 1rem 0;
+}
+
+.cell {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* マウスを持つデバイスのみにホバー効果を適用 */
+@media (hover: hover) and (pointer: fine) {
+  .cell:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.cell:active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cell a {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 500;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.memo-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+  min-height: 4.5em;
+  /* 常に3行分の高さを確保 */
+  max-height: 4.5em;
+  /* 1.5em × 3 lines = 4.5em */
+  color: var(--text);
+}
+
+/* マウスを持つデバイスのみにホバー効果を適用 */
+@media (hover: hover) and (pointer: fine) {
+  .cell a:hover {
+    color: var(--secondary);
+  }
+}
+
+/* Form elements */
+.label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--tertiary);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--cardborder);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: var(--cardback);
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button.is-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* マウスを持つデバイスのみにホバー効果を適用 */
+@media (hover: hover) and (pointer: fine) {
+  .button.is-primary:hover {
+    background-color: var(--secondary);
+  }
+}
+
+/* Button container for flexbox layout */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* Delete button specific styles */
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.delete-button .icon {
+  font-size: 1.2rem;
+  transition: filter 0.2s ease;
+}
+
+/* マウスを持つデバイスのみにホバー効果を適用 */
+@media (hover: hover) and (pointer: fine) {
+  .delete-button:hover .icon {
+    filter: brightness(0.6);
+  }
+}
+
+/* Header row with refresh button */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refresh-button {
+  margin-top: 0;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.9rem;
+}

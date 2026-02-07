@@ -1,0 +1,17 @@
+# All ignore files
+.*ignore
+
+# Lock files of package manager
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+bun.lock
+bun.lockb
+
+#My personal dev docs
+
+# All files under the public directory
+/public
+
+# wrangler.toml sample file
+wrangler.toml.sample
