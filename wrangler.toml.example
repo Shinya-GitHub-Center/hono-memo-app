@@ -1,0 +1,3 @@
+name = "hono-memo-app"
+compatibility_date = "2025-08-03"
+main = "./src/index.tsx"

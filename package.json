@@ -2,12 +2,13 @@
   "name": "hono-memo-app",
   "type": "module",
   "scripts": {
-    "vite:dev": "vite dev",
+    "dev": "vite",
     "build": "vite build",
-    "dev": "wrangler dev",
     "preview": "$npm_execpath run build && vite preview",
     "deploy": "$npm_execpath run build && wrangler deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "clear": "rm -rf .wrangler/ dist/",
+    "reset": "rm -rf .wrangler/ dist/ node_modules/"
   },
   "dependencies": {
     "hono": "^4.11.8"
