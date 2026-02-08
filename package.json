@@ -8,13 +8,18 @@
     "deploy": "$npm_execpath run build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "clear": "rm -rf .wrangler/ dist/",
-    "reset": "rm -rf .wrangler/ dist/ node_modules/"
+    "reset": "rm -rf .wrangler/ dist/ node_modules/",
+    "gen": "drizzle-kit generate --config=drizzle.config.ts",
+    "push:local": "wrangler d1 migrations apply hono-memo-app-localdb --local"
   },
   "dependencies": {
+    "drizzle-orm": "^0.45.1",
     "hono": "^4.11.8"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.2.3",
+    "@cloudflare/workers-types": "^4.20260207.0",
+    "drizzle-kit": "^0.31.8",
     "vite": "^6.3.5",
     "vite-ssr-components": "^0.5.2",
     "wrangler": "^4.17.0"

@@ -1,3 +1,9 @@
 name = "hono-memo-app"
 compatibility_date = "2025-08-03"
 main = "./src/index.tsx"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hono-memo-app-localdb"
+database_id = "0000"
+migrations_dir = "./src/middleware/db/migrations"
