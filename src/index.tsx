@@ -8,10 +8,14 @@ import type { Env, Variables } from './types'
 
 const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 
+// ミドルウェアの設定（appに注入）
+//  レンダラー設定（レイアウト提供）
 app.use(renderer)
-// ミドルウェアの設定
+// DB接続の注入
+// ミドルウェア関数への「参照」を登録しリクエスト時に適宜実行
 app.use('*', dbMiddleware)
 
+// ルーティング設定
 // 一覧ページ
 app.get('/', async (c) => {
   const db = c.get('db')
