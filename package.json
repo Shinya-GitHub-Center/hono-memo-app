@@ -5,12 +5,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "$npm_execpath run build && vite preview",
-    "deploy": "$npm_execpath run build && wrangler deploy",
+    "deploy": "$npm_execpath run build && wrangler deploy --env staging",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "clear": "rm -rf .wrangler/ dist/",
     "reset": "rm -rf .wrangler/ dist/ node_modules/",
     "gen": "drizzle-kit generate --config=drizzle.config.ts",
-    "push:local": "wrangler d1 migrations apply hono-memo-app-localdb --local"
+    "push:local": "wrangler d1 migrations apply hono-memo-app-localdb --local",
+    "push:remote": "wrangler d1 migrations apply hono-memo-app-stagdb --remote --env staging",
+    "secret": "wrangler secret put $1 --env staging"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.1",
