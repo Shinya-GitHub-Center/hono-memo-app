@@ -69,7 +69,7 @@ React の`ReactDOM.render()`のような明示的なマウント処理は不要�
 #### ビルドプロセス
 
 ```bash
-npm run build  # vite build を実行
+bun run build  # vite build を実行
 ```
 
 `@cloudflare/vite-plugin`が以下を自動的に処理：
@@ -100,7 +100,7 @@ dist/
 ### 4. デプロイ時のアップロード先
 
 ```bash
-npm run deploy  # vite build && wrangler deploy
+bun run deploy  # vite build && wrangler deploy
 ```
 
 #### 2つの異なるアップロード先
@@ -181,25 +181,39 @@ Workers Runtimeは通らない（高速）
 ## 開発コマンド
 
 ```bash
-# ローカル開発サーバー起動
-npm run dev
-
-# ビルド
-npm run build
-
-# デプロイ
-npm run deploy
-
 # データベースマイグレーション生成
-npm run gen
+bun run gen
 
 # ローカルDBにマイグレーション適用
-npm run push:local
+bun run push:local
+
+# ローカル開発サーバー起動
+bun run dev
 
 # クリーンアップ
-npm run clear  # .wrangler/ と dist/ を削除
-npm run reset  # node_modules/ も含めて削除
+bun run clear  # .wrangler/ と dist/ を削除
+bun run reset  # node_modules/ も含めて削除
 ```
+
+## 本番デプロイ手順
+
+```bash
+#リモートにデータベースを作成後、IDを`wrangler.toml`にコピペ
+
+# リモートDBにマイグレーション適用
+bun run push:remote
+
+# デプロイ（ビルド含む）
+bun run deploy
+
+# リモートにシークレットを注入（`.dev.vars.remote`を参照）
+bun run secret <ENV_NAME>
+```
+
+## `wrangler.toml`について
+- 現在はローカル環境とリモート本番環境で、同一ワーカー名かつ同一データベース名にしている。（シンプルなtomlファイルで済む）
+- ローカルとリモートで異なる名前にしたい場合は、[ここ](https://developers.cloudflare.com/workers/vite-plugin/reference/migrating-from-wrangler-dev/#cloudflare-environments)を参照にしてビルドコマンドを`"build": "CLOUDFLARE_ENV=staging vite build",`のようにすればよい。その場合は`wrangler.toml`は以前のローカルと本番で設定がそれぞれ存在するバージョンにする。
+- Honoプロジェクトのvite統合バージョンは、vite-pluginが自動で統合されているので、wranglerコマンド実行時に`--env`オプションが利用できないため、上記の方法をとっている。
 
 ## プロジェクト構造
 
@@ -221,6 +235,8 @@ hono-memo-app/
 ├── drizzle.config.ts          # Drizzle ORM設定
 └── package.json
 ```
+
+※Basic認証も追加しているので、middlewareにauth.tsを追加している。これはローカル開発環境では無視されるが、本番環境では別途secretコマンドでシークレットを注入することで、`IS_PROD`が存在することによって認証が動作する仕組みになっている。
 
 ## 類似フレームワークとの比較
 
