@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
 import { dbMiddleware } from './middleware/db'
+import { authMiddleware } from './middleware/auth'
 import { memoItems } from './middleware/db/schema'
 import { desc, eq } from 'drizzle-orm'
 
@@ -14,6 +15,8 @@ app.use(renderer)
 // DB接続の注入
 // ミドルウェア関数への「参照」を登録しリクエスト時に適宜実行
 app.use('*', dbMiddleware)
+// 認証ミドルウェアの設定（本番環境のみ実行）
+app.use('*', authMiddleware)
 
 // ルーティング設定
 // 一覧ページ
