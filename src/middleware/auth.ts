@@ -1,12 +1,12 @@
 import { Context, Next } from 'hono';
 import { basicAuth } from 'hono/basic-auth';
-import { Env, Variables } from '../types';
+import { Env } from '../types';
 
 /**
  * 認証ミドルウェア
  * 本番環境（IS_PRODが設定されている場合）のみ実行される
  */
-export async function authMiddleware(c: Context<{ Bindings: Env; Variables: Variables }>, next: Next) {
+export async function authMiddleware(c: Context<{ Bindings: Env }>, next: Next) {
     // IS_PRODが設定されていない場合は認証をスキップ（開発環境）
     if (!c.env.IS_PROD) {
         await next();
