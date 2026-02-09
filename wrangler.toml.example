@@ -1,26 +1,25 @@
-name = "hono-memo-app-dev"
+name = "hono-memo-app"
 compatibility_date = "2025-08-03"
 main = "./src/index.tsx"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "hono-memo-app-localdb"
+database_name = "hono-memo-app-local-db"
 database_id = "0000"
 migrations_dir = "./src/middleware/db/migrations"
 
-[env.staging]
-name = "hono-memo-app-stag"
+[env.production]
 workers_dev = true
 
-[env.staging.observability]
+[env.production.observability]
 enabled = true
 
-[env.staging.vars]
-# .dev.vars.staging（リモート用シークレット設定ファイルのダミー）
+[env.production.vars]
+# .dev.vars.production（リモート用シークレット設定ファイルのダミー）
 # `bun run secret <KEY_NAME>`でマニュアルでサーバーにアップする
 
-[[env.staging.d1_databases]]
+[[env.production.d1_databases]]
 binding = "DB"
-database_name = "hono-memo-app-stagdb"
+database_name = "hono-memo-app-prod-db"
 database_id = "enter_your_db_id"
 migrations_dir = "./src/middleware/db/migrations"
