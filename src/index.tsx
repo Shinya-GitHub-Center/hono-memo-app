@@ -53,7 +53,7 @@ app.get('/memo/:id', async (c) => {
   const id = parseInt(c.req.param('id'))
   const db = c.get('db')
 
-  let memo;
+  let memo: { id: number; body: string; createdAt: Date | null }
 
   if (id === 0) {
     // 新規メモ
@@ -98,10 +98,15 @@ app.get('/memo/:id', async (c) => {
 // メモ保存（POST）
 app.post('/memo/:id/save', async (c) => {
   const id = parseInt(c.req.param('id'))
+
+  if (isNaN(id)) {
+    return c.text('無効なIDです', 400)
+  }
+
   const formData = await c.req.formData()
   const body = formData.get('body') as string
 
-  if (!body) {
+  if (!body || !body.trim()) {
     return c.text('メモの内容を入力してください', 400)
   }
 
