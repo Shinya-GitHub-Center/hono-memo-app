@@ -10,8 +10,8 @@
     "clear": "rm -rf .wrangler/ dist/",
     "reset": "rm -rf .wrangler/ dist/ node_modules/",
     "gen": "drizzle-kit generate --config=drizzle.config.ts",
-    "push:local": "wrangler d1 migrations apply hono-memo-app-db --local",
-    "push:remote": "wrangler d1 migrations apply hono-memo-app-db --remote",
+    "push:local": "wrangler d1 migrations apply $1 --local",
+    "push:remote": "wrangler d1 migrations apply $1 --remote",
     "secret": "wrangler secret put $1"
   },
   "dependencies": {

@@ -185,7 +185,7 @@ Workers Runtimeは通らない（高速）
 bun run gen
 
 # ローカルDBにマイグレーション適用
-bun run push:local
+bun run push:local <DB_NAME>
 
 # ローカル開発サーバー起動
 bun run dev
@@ -201,7 +201,7 @@ bun run reset  # node_modules/ も含めて削除
 #リモートにデータベースを作成後、IDを`wrangler.toml`にコピペ
 
 # リモートDBにマイグレーション適用
-bun run push:remote
+bun run push:remote <DB_NAME>
 
 # デプロイ（ビルド含む）
 bun run deploy
@@ -211,8 +211,8 @@ bun run secret <ENV_NAME>
 ```
 
 ## `wrangler.toml`について
-- 現在はローカル環境とリモート本番環境で、同一ワーカー名かつ同一データベース名にしている。（シンプルなtomlファイルで済む）
-- ローカルとリモートで異なる名前にしたい場合は、[ここ](https://developers.cloudflare.com/workers/vite-plugin/reference/migrating-from-wrangler-dev/#cloudflare-environments)を参照にしてビルドコマンドを`"build": "CLOUDFLARE_ENV=staging vite build",`のようにすればよい。その場合は`wrangler.toml`は以前のローカルと本番で設定がそれぞれ存在するバージョンにする。
+- 現在はローカル環境とリモート本番環境で、同一ワーカー名かつ同一データベース名にしている（ローカル環境x1および本番環境x1なのでシンプルなtomlファイルで済む）
+- ローカルとリモートで異なる名前にしたい場合（特にリモート環境にstaging用とproduction用等2つ以上の環境を必要とする場合）は、[ここ](https://developers.cloudflare.com/workers/vite-plugin/reference/migrating-from-wrangler-dev/#cloudflare-environments)を参照にしてビルドコマンドを`"build": "CLOUDFLARE_ENV=staging vite build",`のようにすればよい。その場合は`wrangler.toml`は以前のローカルと本番で設定がそれぞれ存在するバージョンにする。
 - Honoプロジェクトのvite統合バージョンは、vite-pluginが自動で統合されているので、wranglerコマンド実行時に`--env`オプションが利用できないため、上記の方法をとっている。
 
 ## プロジェクト構造
