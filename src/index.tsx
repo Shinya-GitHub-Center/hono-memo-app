@@ -10,13 +10,14 @@ import type { Env, Variables } from './types'
 const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 
 // ミドルウェアの設定（appに注入）
-//  レンダラー設定（レイアウト提供）
-app.use(renderer)
-// DB接続の注入
 // ミドルウェア関数への「参照」を登録しリクエスト時に適宜実行
-app.use('*', dbMiddleware)
+
 // 認証ミドルウェアの設定（本番環境のみ実行）
 app.use('*', authMiddleware)
+// DB接続の注入
+app.use('*', dbMiddleware)
+//  レンダラー設定（レイアウト提供）
+app.use(renderer)
 
 // ルーティング設定
 // 一覧ページ
@@ -47,7 +48,8 @@ app.get('/', async (c) => {
           )
         )}
       </ul>
-    </div>
+    </div>,
+    { title: 'Memo App' }
   )
 })
 
@@ -94,7 +96,8 @@ app.get('/memo/:id', async (c) => {
           )}
         </div>
       </form>
-    </div>
+    </div>,
+    { title: 'Submit | Memo App' }
   )
 })
 
