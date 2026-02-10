@@ -1,6 +1,7 @@
-# hono-memo-app
+# [学習用]hono-memo-app[hono.dev]
 
-Cloudflare Workers + Hono + D1 + Drizzle ORMを使用したメモアプリケーション
+- Cloudflare Workers + Hono + D1 + Drizzle ORMを使用したメモアプリケーション
+- 学習用なので個人や友人間でのテスト利用でお願いします
 
 ## 技術スタック
 
