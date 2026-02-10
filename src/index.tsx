@@ -89,7 +89,7 @@ app.get('/memo/:id', async (c) => {
         <textarea id="body" name="body" class="textarea">{memo.body}</textarea>
         <div class="button-container">
           <input type="submit" value="保存" class="button is-primary" />
-          {memo.id && memo.id !== 0 && (
+          {memo.id !== 0 && (
             <button type="submit" formaction={`/memo/${memo.id}/delete`} class="delete-button" title="削除">
               <span class="icon">🗑️</span>
             </button>
