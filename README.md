@@ -216,6 +216,50 @@ bun run secret <ENV_NAME>
 - ローカルとリモートで異なる名前にしたい場合（特にリモート環境にstaging用とproduction用等2つ以上の環境を必要とする場合）は、[ここ](https://developers.cloudflare.com/workers/vite-plugin/reference/migrating-from-wrangler-dev/#cloudflare-environments)を参照にしてビルドコマンドを`"build": "CLOUDFLARE_ENV=staging vite build",`のようにすればよい。その場合は`wrangler.toml`は以前のローカルと本番で設定がそれぞれ存在するバージョンにする。
 - Honoプロジェクトのvite統合バージョンは、vite-pluginが自動で統合されているので、wranglerコマンド実行時に`--env`オプションが利用できないため、上記の方法をとっている。
 
+## Honoの型システム
+
+### ジェネリクスでのオブジェクト型リテラル
+
+```typescript
+const app = new Hono<{ Bindings: Env; Variables: Variables }>()
+```
+
+この書き方は**オブジェクト型リテラル**と呼ばれ、ジェネリクスに直接型定義を記述できます。別途型定義を作成するのと同等ですが、1箇所でしか使わない型をインラインで定義できるため簡潔です。
+
+### プロパティ名が大文字で始まる理由
+
+通常の型定義では小文字始まりが一般的です：
+
+```typescript
+type Human = {
+  name: string;  // 小文字始まり
+  age: number;
+}
+```
+
+しかしHonoでは大文字始まりを使用：
+
+```typescript
+type HonoConfig = {
+  Bindings: Env;      // 大文字始まり
+  Variables: Variables;
+}
+```
+
+これは**Honoフレームワークとの契約（約束事）**です。Honoは内部で以下のように型を抽出します：
+
+- `Bindings` → `c.env`の型として使用（`c.env`からBindingsに結びついたEnv型のそれぞれのプロパティ名にアクセスできる仕様）
+- `Variables` → `c.get()`の型として使用（Variables型のdbプロパティの型（DrizzleD1Database）が返り値の型になり、つまり、getのパラメータに特定のプロパティ名を指定して、その値の型を取得している）
+
+```typescript
+app.get('/', async (c) => {
+  const db = c.env.DB        // Bindings（Env型）から取得
+  const dbInstance = c.get('db')  // Variables型から取得
+})
+```
+
+大文字始まりは「これは値のプロパティではなく、フレームワークが内部的に使う型カテゴリーの識別子である」ことを示す慣習的な書き方です。
+
 ## プロジェクト構造
 
 ```
